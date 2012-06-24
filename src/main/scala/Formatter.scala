@@ -13,17 +13,18 @@ case class Node[+A](a: A, children: List[Graph[A]]) extends Graph[A] {
 
 object Graph {
 
-  def add[A](g: Graph[A], ls: List[A]): Graph[A] = (g, ls) match {
-    case (E, y :: ys) => Node(y, add(E, ys) :: add(E, ys) :: Nil);
+  def addd[A](g: Graph[A], ls: List[A]): Graph[A] = (g, ls) match {
+    case (E, y :: ys) => Node(y, addd(E, ys) :: Nil);
     case (E, Nil) => E
     case (n: Node[A], Nil) => n
     case (Node(x, xs), y :: ys) =>
       val (head, tail) = if (x == y) (ys.head, ys.tail) else (y, ys)
       xs.find(_ eqv head) match {
-        case None => Node(x, Node(head, add(E, tail) :: Nil) :: Node(head, add(E, tail) :: add(E, tail) :: Nil) :: xs)
-        case Some(n) => Node(x, add(n, tail) :: add(n, tail) :: xs.filterNot(_ eqv head))
+        case None => Node(x, Node(head, addd(E, tail) :: Nil) :: xs)
+        case Some(n) => Node(x, addd(n, tail) :: xs.filterNot(_ eqv head))
       }
   }
   
+  def build(ls: List[String]) = ls.foldLeft(E: Graph[String]) { (x, y) => addd(x, y split "/" toList) }
 }
 

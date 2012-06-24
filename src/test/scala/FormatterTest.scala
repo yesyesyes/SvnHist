@@ -40,8 +40,9 @@ root/dev/src/test/resources/res1test.txt"""
           |-package1/Scala3.scala
           |-Scala2.scala
           |-Scala1.scala"""
-  
+  import Graph._
   test("should format as tree") {
+    println(build(files.split("\n").map(_.trim()).toList).toStr)
   }
   
   
