@@ -21,6 +21,8 @@ root/dev/src/test/java/Java2Test.java
 root/dev/src/main/resources/res1.txt
 root/dev/src/test/resources/res1test.txt"""
     
+    val res1 = """Node(root,List(Node(dev,List(Node(src,List(Node(test,List(Node(resources,List(Node(res1test.txt,List(E)))), Node(java,List(Node(Java2Test.java,List(E)), Node(Java1Test.java,List(E)))), Node(scala,List(Node(package1,List(Node(Scala3Test.scala,List(E)))), Node(Scala2Test.scala,List(E)), Node(Scala1Test.scala,List(E)))))), Node(main,List(Node(resources,List(Node(res1.txt,List(E)))), Node(scala,List(Node(package1,List(Node(Scala3.scala,List(E)))), Node(Scala2.scala,List(E)), Node(Scala1.scala,List(E)))), Node(java,List(Node(Java2.java,List(E)), Node(Java1.java,List(E))))))))))))"""
+
    val res = """|-root/dev/src
       |-test
         |-resources/res1test.txt
@@ -42,7 +44,8 @@ root/dev/src/test/resources/res1test.txt"""
           |-Scala1.scala"""
   import Graph._
   test("should format as tree") {
-    println(build(files.split("\n").map(_.trim()).toList).toStr)
+    val tree = build(files.split("\n").map(_.trim()).toList)
+    assert(tree.toString()==res1)
   }
   
   
