@@ -1,5 +1,4 @@
 import scala.xml.{Elem, NodeSeq, PrettyPrinter}
-import scala.xml.Null
 
 object Graph {
 
@@ -37,6 +36,14 @@ object Graph {
   def build(ls: List[String], sep: Char = '/') = ls.foldLeft(E: Graph[String]) { (x, y) => add(x, y split sep toList) }
   
   def XmlToString(e: Elem) = new PrettyPrinter(80, 2) format e
+
+  def mkString[A](g: Graph[A], level: Int = 0, step: Int = 2): String = {
+    val strS = (size: Int) => " " * size
+    g match {
+      case E => ""
+      case Node(x, xs) => strS(level) + "|-" + x + "\n" + xs.foldLeft("") { (x, y) => x + mkString(y, level + step) }
+    }
+  }
   
 }
 
