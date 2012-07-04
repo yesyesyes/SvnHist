@@ -33,7 +33,7 @@ object Graph {
       }
   }
   
-  def build(ls: List[String], sep: Char = '/') = ls.foldLeft(E: Graph[String]) { (x, y) => add(x, y split sep toList) }
+  def build(ls: List[String], sep: String) = ls.foldLeft(E: Graph[String]) { (x, y) => add(x, y split sep toList) }
   
   def XmlToString(e: Elem) = new PrettyPrinter(80, 2) format e
 

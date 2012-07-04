@@ -24,7 +24,7 @@ root/dev/src/test/resources/res1test.txt"""
   
   import Graph._
   
-  val graph = build(files split "\n" map(_.trim()) toList, '/')
+  val graph = build(files split "\n" map(_.trim()) toList, "/")
   
   test("should format as correct tree") {
     assert(graph.toString() == resLists)
